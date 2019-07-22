@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>The knight's journey</title>
+</head>
+
+<body>
+    <script>
+        let gridSize = 8;
+        let grid = [];
+        for (let i = 0; i < gridSize; i++) {
+            let arr = [];
+            for (let j = 0; j < gridSize; j++) {
+                arr.push(0);
+            }
+            grid.push(arr);
+        }
+
+        grid[0][0] = 1;
+
+        let knight = {
+            x: 0,
+            y: 0
+        }
+
+        function invade(knight, depth = 1) {
+            if (depth > 1000) return;
+
+            let rand = Math.floor(Math.random() * 2);
+            let len = grid.length - 1;
+            if (rand) {
+                if (knight.x + 2 > len && knight.y + 1 > len) {
+                    knight.x -= 2;
+                    knight.y -= 1;
+                } else if (knight.x + 2 > len) {
+                    knight.x -= 2;
+                    knight.y += 1;
+                } else if (knight.y + 1 > len) {
+                    knight.x += 2;
+                    knight.y -= 1;
+                } else {
+                    knight.x += 2;
+                    knight.y += 1;
+                }
+            }
+            else {
+                if (knight.x + 1 > len && knight.y + 2 > len) {
+                    knight.x -= 1;
+                    knight.y -= 2;
+                } else if (knight.x + 1 > len) {
+                    knight.x -= 1;
+                    knight.y += 2;
+                } else if (knight.y + 2 > len) {
+                    knight.x += 1;
+                    knight.y -= 2;
+                } else {
+                    knight.x += 1;
+                    knight.y += 2;
+                }
+            }
+
+            if (grid[knight.x][knight.y] == 1) {
+                console.log('damn !');
+            }
+            grid[knight.x][knight.y] = 1;
+
+            invade(knight, depth + 1);
+        }
+
+        invade(knight);
+
+
+        console.log(grid);
+
+
+    </script>
+</body>
+
+</html>
